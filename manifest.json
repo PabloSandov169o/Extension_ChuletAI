@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Chuleta Virtual",
+  "version": "3.0",
+  "description": "Chuleta mejorada con controles corregidos, pestañas e imágenes persistentes.",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "commands": {
+    "toggle-extension": {
+      "suggested_key": { "default": "Ctrl+Shift+X" },
+      "description": "Mostrar/Ocultar Chuleta"
+    }
+  }
+}

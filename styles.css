@@ -1,0 +1,168 @@
+/* --- VARIABLES DE TEMA (CLARO POR DEFECTO) --- */
+#chuleta-panel {
+  --bg-panel: #ffffff;
+  --bg-header: #f1f1f1;
+  --bg-tabs: #e4e4e4;
+  --bg-tab-inactive: #cccccc;
+  --bg-controls: #fafafa;
+  --text-main: #000000;
+  --border-color: #cccccc;
+  --btn-bg: #e0e0e0;
+  --btn-hover: #d0d0d0;
+}
+
+/* --- VARIABLES MODO OSCURO --- */
+#chuleta-panel.dark-theme {
+  --bg-panel: #1e1e1e;
+  --bg-header: #2d2d2d;
+  --bg-tabs: #252526;
+  --bg-tab-inactive: #3e3e42;
+  --bg-controls: #333333;
+  --text-main: #ffffff;
+  --border-color: #444444;
+  --btn-bg: #4a4a4c;
+  --btn-hover: #5c5c5e;
+}
+
+/* --- ESTILOS BASE --- */
+#chuleta-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 100vh;
+  background: var(--bg-panel);
+  color: var(--text-main);
+  border-right: 2px solid var(--border-color);
+  z-index: 999999;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+  transition: background 0.3s, color 0.3s;
+}
+
+button, select, input[type="file"] {
+  background: var(--btn-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover, select:hover {
+  background: var(--btn-hover);
+}
+
+#chuleta-header {
+  padding: 10px;
+  background: var(--bg-header);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --- ESTILOS DE PESTAÑAS --- */
+#tabs {
+  display: flex;
+  overflow-x: auto;
+  background: var(--bg-tabs);
+  padding: 5px 5px 0 5px;
+}
+
+.tab-btn {
+  padding: 8px 12px;
+  margin-right: 4px;
+  background: var(--bg-tab-inactive);
+  border: none;
+  border-radius: 5px 5px 0 0;
+  font-size: 12px;
+  border-bottom: none;
+}
+
+.tab-btn.active {
+  background: var(--bg-panel);
+  font-weight: bold;
+}
+
+#editor-controls {
+  padding: 8px;
+  background: var(--bg-controls);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+#content {
+  flex-grow: 1;
+  padding: 15px;
+  overflow-y: auto;
+  position: relative;
+  outline: none;
+  background: var(--bg-panel);
+  color: var(--text-main);
+}
+
+/* --- IMÁGENES --- */
+.img-wrapper {
+  position: absolute;
+  width: 150px;
+  display: inline-block;
+  z-index: 10;
+}
+
+.img-wrapper img {
+  width: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+.resizer {
+  width: 12px;
+  height: 12px;
+  background: #007bff;
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  cursor: se-resize;
+  border-radius: 50%;
+}
+
+/* --- TRANSPARENCIA (TEXTO FLOTANTE) --- */
+#transparent-toggle {
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  z-index: 9999999;
+  background: #333 !important;
+  color: white !important;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+#chuleta-panel.transparent {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Ocultamos toda la interfaz excepto el texto y el botón del ojo */
+#chuleta-panel.transparent #chuleta-header,
+#chuleta-panel.transparent #tabs,
+#chuleta-panel.transparent #editor-controls {
+  display: none !important;
+}
+
+#chuleta-panel.transparent #content {
+  background: transparent !important;
+  /* El texto mantiene su color por las variables, pero flota en el aire */
+}
