@@ -1,6 +1,9 @@
-let panelVisible = true;
+let panelVisible = false; // Empieza oculto
 let transparentMode = false;
 let isDarkMode = false;
+
+// NUEVO: controla si ya se activó alguna vez
+let hasBeenActivated = false;
 let tabs = [{ id: Date.now(), name: "Principal", content: "" }];
 let activeTabId = tabs[0].id;
 
@@ -37,13 +40,23 @@ panel.innerHTML = `
 <button id="transparent-toggle" title="Modo Transparente">👁</button>
 `;
 document.body.appendChild(panel);
+// Mantener el panel oculto al cargar la página
+panel.style.display = "none";
 
 const contentDiv = document.getElementById("content");
 const tabsContainer = document.getElementById("tabs");
 const themeToggleBtn = document.getElementById("theme-toggle");
 
-// ===== FUNCIÓN GLOBAL PARA ABRIR/CERRAR =====
 function togglePanelGlobal() {
+  // Si nunca se ha activado, mostrarlo por primera vez
+  if (!hasBeenActivated) {
+    panelVisible = true;
+    panel.style.display = "flex";
+    hasBeenActivated = true;
+    return;
+  }
+
+  // Luego ya funciona normal
   panelVisible = !panelVisible;
   panel.style.display = panelVisible ? "flex" : "none";
 }
