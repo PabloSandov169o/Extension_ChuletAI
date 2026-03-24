@@ -1,0 +1,1 @@
+Hola, para activar por primera vez esta extension se debera usar un atajo predeterminado que es este: "Ctrl+Shift+X"
