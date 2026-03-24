@@ -4,7 +4,10 @@ let isDarkMode = false;
 
 // NUEVO: controla si ya se activó alguna vez
 let hasBeenActivated = false;
-let tabs = [{ id: Date.now(), name: "Principal", content: "" }];
+let tabs = [
+  { id: Date.now(), name: "Principal", content: "" },
+  { id: "chatgpt-tab", name: "ChatGPT", content: "" }
+];
 let activeTabId = tabs[0].id;
 
 // Variables para el atajo personalizado
@@ -76,10 +79,26 @@ function renderTabs() {
 function switchTab(id) {
   saveCurrentContent();
   activeTabId = id;
-  const activeTab = tabs.find(t => t.id === id);
-  contentDiv.innerHTML = activeTab.content;
+
+  if (id === "chatgpt-tab") {
+    contentDiv.innerHTML = `
+      <iframe
+        src="https://chat.openai.com"
+        style="
+          width: 100%;
+          height: 100%;
+          border: none;
+          background: white;
+        ">
+      </iframe>
+    `;
+  } else {
+    const activeTab = tabs.find(t => t.id === id);
+    contentDiv.innerHTML = activeTab.content;
+    reattachImageEvents();
+  }
+
   renderTabs();
-  reattachImageEvents(); 
 }
 
 document.getElementById("add-tab").onclick = () => {
@@ -112,7 +131,10 @@ themeToggleBtn.onclick = () => {
 
 // ===== 4. GUARDADO Y CARGA =====
 function saveCurrentContent() {
+  if (activeTabId === "chatgpt-tab") return;
+
   const tabIndex = tabs.findIndex(t => t.id === activeTabId);
+
   if (tabIndex !== -1) {
     tabs[tabIndex].content = contentDiv.innerHTML;
   }
